@@ -49,7 +49,7 @@
 			<td colspan="3"><input type="submit" name="btnJouer" class="btn btn-success" value="Jouer" /></td>
 		</tr>
 		<tr>
-			<td colspan="3"><a href="connexion.php?deco" id="quitButton" class="btn btn-danger">Quitter</a></td>
+			<td colspan="3"><a href="index.php?deco" id="quitButton" class="btn btn-danger">Quitter</a></td>
 		</tr>
 	</table>
 	</form>

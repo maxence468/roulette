@@ -58,18 +58,11 @@ class JoueurDAO{
 			$result = $bdd->query($sql); */
 
 			$sql = 'SELECT * FROM roulette_joueur
-			WHERE nom = ? AND motdepasse = ?;';
+			WHERE nom = ?;';
 			$result = $bdd->prepare($sql);
-			$result ->execute([$utilisateur, $motdepasse]);
-
-			
-			/* DEBUG pour vérifier la requête
-				var_dump($sql);
-				var_dump($result->fetch());
-				die();
-			 */
-				$data = $result->fetch();
-			if($data) {
+			$result ->execute([$utilisateur]);
+			$data = $result->fetch();
+			if($data && password_verify($motdepasse, $data['motdepasse'])) {
 				$_SESSION['joueur_id'] = intval($data['identifiant']);
 				$_SESSION['joueur_nom'] = $data['nom'];
 				$_SESSION['joueur_argent'] = intval($data['argent']);
@@ -90,13 +83,24 @@ class JoueurDAO{
 
 	public function getById($id){
 		$sql = 'SELECT * FROM roulette_joueur WHERE id = ?';
-		$req = $this.bdd->prepare($sql);
-		$req->execute([$i]);
+		$req = $this->bdd->prepare($sql);
+		$req->execute([$id]);
 		$data = $req->fetch();
 		if($data) {
-			$joueur = new Joueur($data['id'], $data['nom'], $data['mdp'], $data['argent']);
+			$joueur = new Joueur($data['identifiant'], $data['nom'], $data['motdepasse'], $data['argent']);
 		}
 		return $joueur;
 	}
 	
+	public function getByName($name){
+		$joueur = null;
+		$sql = 'SELECT * FROM roulette_joueur WHERE nom = ?';
+		$req = $this->bdd->prepare($sql);
+		$req->execute([$name]);
+		$data = $req->fetch();
+		if($data) {
+			$joueur = new Joueur($data['identifiant'], $data['nom'], $data['motdepasse'], $data['argent']);
+		}
+		return $joueur;
+	}
 }
