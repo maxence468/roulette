@@ -1,5 +1,8 @@
 <div id="intro">
 	<h3><?php echo htmlspecialchars($_SESSION['joueur_nom']) ?></h3>
+	<p style="color: red;"><?php if ($message_erreur != "") {
+		echo $message_erreur;
+	}?></p>
 
 
 	<h4><?= $_SESSION['joueur_argent'] ?> €</h4>

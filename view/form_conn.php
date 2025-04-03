@@ -1,3 +1,8 @@
+<div id="intro">
+<p style="color: red;"><?php if ($message_erreur != "") {
+		echo $message_erreur;
+	}?></p>
+</div>
 <form method="post" action="index.php">
 	<table id="connexionTable">
 		<tr>

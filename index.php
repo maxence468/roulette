@@ -28,12 +28,15 @@ if(isset($_POST['btnConnect'])) {
 			// Si pas d'erreur, renvoie l'utilisateur vers le jeu de la roulette
 			$module = "jeu";		
 		}
+	} else {
+		$message_erreur = 'Il faut remplir les champs!';
 	}
 }
 
 //Inscription
 // Vérifie que le bouton du formulaire a été cliqué
 else if(isset($_POST['btnSignup'])) {
+	$module = "Inscription";
 	// Vérifie que les champs existent et ne sont pas vides
 	if(isset($_POST['nom']) && $_POST['nom'] != '' &&
 		isset($_POST['motdepasse']) && $_POST['motdepasse'] != '') {
@@ -67,7 +70,10 @@ if(isset($_GET['btnJouer'])) {
 			$message_erreur = 'On ne mise pas plus que ce qu\'on a ...';
 		} else if($_GET['numero'] == 0 && !isset($_GET['parite'])) {
 			$message_erreur = 'Il faut miser sur quelquechose!';
-		} else {
+		} else if($_GET['numero'] == ''){
+			$message_erreur = 'Il faut miser sur quelquechose!';
+		}
+		 else {
 			$_SESSION['joueur_argent'] -= $_GET['mise'];
 			$gain = 0;
 			$numero = rand(1, 36);
